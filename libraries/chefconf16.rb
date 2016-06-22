@@ -17,7 +17,7 @@
 module Google
   module ChefConf16
     class AppengineDeploy < Chef::Resource
-      @@STORE_API = 'https://storage.googleapis.com'
+      @store_api = 'https://storage.googleapis.com'
 
       def initialize(args = {})
         require 'google/apis/appengine_v1beta5'
@@ -26,12 +26,12 @@ module Google
         # TODO(nelsona): Move this to a gem and not require '_relative'
         require_relative 'google_credential_helper'
 
-        raise 'Missing :app_id' unless @app_id = args[:app_id]
-        raise 'Missing :serviceid' unless @service_id = args[:service_id]
-        raise 'Missing :bucket_name' unless @bucket_name = args[:bucket_name]
+        raise 'Missing :app_id' unless (@app_id = args[:app_id])
+        raise 'Missing :serviceid' unless (@service_id = args[:service_id])
+        raise 'Missing :bucket_name' unless (@bucket_name = args[:bucket_name])
         raise 'Missing :service_account_json' \
-            unless @service_account_json = args[:service_account_json]
-        @bucket_uri = "#{@@STORE_API}/#{@bucket_name}"
+            unless (@service_account_json = args[:service_account_json])
+        @bucket_uri = "#{@store_api}/#{@bucket_name}"
         @ver_id = Time.new.iso8601.to_s.delete('-').delete(':').delete('+').downcase
         @file_upload_path = "myapp/mymain-#{@ver_id}.py"
       end
@@ -72,10 +72,11 @@ module Google
 
       # Create a new version of the application
       def create_new_version(source)
-        @app_engine = Google::CredentialHelper.new
-                                              .for!(Google::Apis::AppengineV1beta5::AUTH_CLOUD_PLATFORM)
-                                              .from_service_account_json!(@service_account_json)
-                                              .authorize Google::Apis::AppengineV1beta5::AppengineService.new
+        @app_engine =
+          Google::CredentialHelper.new
+                                  .for!(Google::Apis::AppengineV1beta5::AUTH_CLOUD_PLATFORM)
+                                  .from_service_account_json!(@service_account_json)
+                                  .authorize Google::Apis::AppengineV1beta5::AppengineService.new
 
         version_info = YAML.load(::File.read("#{source}/app.yaml"))
         version = Google::Apis::AppengineV1beta5::Version.new(
