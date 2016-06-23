@@ -14,6 +14,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'chef'
+
 module Google
   module ChefConf16
     class AppengineDeploy < Chef::Resource
@@ -22,9 +24,7 @@ module Google
       def initialize(args = {})
         require 'google/apis/appengine_v1beta5'
         require 'google/apis/storage_v1'
-
-        # TODO(nelsona): Move this to a gem and not require '_relative'
-        require_relative 'google_credential_helper'
+        require 'google/credential_helper'
 
         raise 'Missing :app_id' unless (@app_id = args[:app_id])
         raise 'Missing :serviceid' unless (@service_id = args[:service_id])
