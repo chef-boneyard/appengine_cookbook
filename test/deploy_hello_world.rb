@@ -1,4 +1,4 @@
-require_relative 'google/chefconf16'
+require 'google/chefconf16'
 
 deployer = Google::ChefConf16::AppengineDeploy.new(
   :app_id => 'google.com:graphite-playground',
