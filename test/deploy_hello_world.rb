@@ -6,6 +6,7 @@ deployer = Google::ChefConf16::AppengineDeploy.new(
   :bucket_name => 'graphite-playground',
   :service_account_json =>
       File.expand_path("~/.config/gcloud/service_account.json"),
+  :app_yaml => 'app.yaml',
 )
 deployer.upload_files
 deploy_info = deployer.create_new_version

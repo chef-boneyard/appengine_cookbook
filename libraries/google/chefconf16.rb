@@ -26,11 +26,14 @@ module Google
         require 'google/apis/storage_v1'
         require 'google/credential_helper'
 
-        raise 'Missing :app_id' unless (@app_id = args[:app_id])
-        raise 'Missing :serviceid' unless (@service_id = args[:service_id])
-        raise 'Missing :bucket_name' unless (@bucket_name = args[:bucket_name])
+        raise 'Missing :app_id' if (@app_id = args[:app_id]).nil? or @app_id.empty?
+        raise 'Missing :serviceid' if (@service_id = args[:service_id]).nil? or @service_id.empty?
+        raise 'Missing :bucket_name' \
+            if (@bucket_name = args[:bucket_name]).nil? or @bucket_name.empty?
         raise 'Missing :service_account_json' \
-            unless (@service_account_json = args[:service_account_json])
+            if (@service_account_json = args[:service_account_json]).nil? \
+                or @service_account_json.empty?
+        raise 'Missing :app_yaml' if (@app_yaml = args[:app_yaml]).nil? or @app_yaml.empty?
         @bucket_uri = "#{@store_api}/#{@bucket_name}"
         @ver_id = Time.new.iso8601.to_s.delete('-').delete(':').delete('+').downcase
         @file_upload_path = "myapp/mymain-#{@ver_id}.py"
