@@ -32,7 +32,7 @@ module Google
         raise 'Missing :service_account_json' \
             unless (@service_account_json = args[:service_account_json])
         @bucket_uri = "#{@store_api}/#{@bucket_name}"
-        @ver_id = Time.new.iso8601.to_s.delete('-').delete(':').delete('+').downcase
+        @ver_id = Time.new.iso8601.to_s.gsub('-','').gsub(':','').gsub('+','').downcase
         @file_upload_path = "myapp/mymain-#{@ver_id}.py"
       end
 

@@ -35,11 +35,12 @@ end
 bash "Install gems into the chefdk" do
   user "root"
   cwd "/tmp"
-  creates "/opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/google-api-client-0.8.6"
+  creates "/opt/chefdk/.google_installed"
   code <<-EOH
   STATUS=0
-  chef gem install googleauth || STATUS=1
-  chef gem install google-api-client || STATUS=1
+  sudo chef exec gem install googleauth || STATUS=1
+  sudo chef exec gem install google-api-client || STATUS=1
+  sudo touch /opt/chefdk/.google_installed || STATUS=1
   exit $STATUS
   EOH
 end
