@@ -32,6 +32,18 @@ chef_gem 'json' do
   action :install
 end
 
+bash "Install gems into the chefdk" do
+  user "root"
+  cwd "/tmp"
+  creates "/opt/chefdk/embedded/lib/ruby/gems/2.1.0/gems/google-api-client-0.8.6"
+  code <<-EOH
+  STATUS=0
+  chef gem install googleauth || STATUS=1
+  chef gem install google-api-client || STATUS=1
+  exit $STATUS
+  EOH
+end
+
 git node.default['appengine']['source_location'] do
   repository node.default['appengine']['repository']
   reference  node.default['appengine']['branch']
