@@ -4,7 +4,7 @@
 
 ## Description
 
-Manage deployment and configuration of underlying Mesosphere DCOS installation.
+Manage deployment and configuration of a AppEngine application from Google.
 
 ## Requirements
 
@@ -45,7 +45,6 @@ For instance, the following will create `"formal-platform-134918"` with the foll
 - `:stage` creates the app, uploads the files from the repo
 
 ## Recipe
-
 
 ### default
 
