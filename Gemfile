@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'chef'
 gem 'chefspec'
 gem 'github_changelog_generator'
+gem 'google-api-client'
 
 group :lint do
   gem 'foodcritic'
