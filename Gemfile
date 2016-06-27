@@ -23,6 +23,7 @@ end
 
 group :kitchen_vagrant do
   gem 'kitchen-vagrant'
+  gem 'kitchen-inspec'
 end
 
 group :development do
