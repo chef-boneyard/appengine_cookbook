@@ -32,10 +32,10 @@ chef_gem 'json' do
   action :install
 end
 
-bash "Install gems into the chefdk" do
-  user "root"
-  cwd "/tmp"
-  creates "/opt/chefdk/.google_installed"
+bash 'Install gems into the chefdk' do
+  user 'root'
+  cwd '/tmp'
+  creates '/opt/chefdk/.google_installed'
   code <<-EOH
   STATUS=0
   sudo chef exec gem install googleauth || STATUS=1
