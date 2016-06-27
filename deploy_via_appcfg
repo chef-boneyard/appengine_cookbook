@@ -1,0 +1,1 @@
+version=$(date +%s) && ~/Downloads/google_appengine/appcfg.py update ../app -A google.com:graphite-playground -V $version && open https://${version}-dot-graphite-playground.googleplex.com/
