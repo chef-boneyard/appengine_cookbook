@@ -2,7 +2,11 @@
 # to a chef-server or supermarket.
 # Lines that start with '# ' are comments.
 
+# Do'h you shouldn't upload your keys dummy
+files/default/service_account.json
+
 # OS generated files #
+
 ######################
 .DS_Store
 Icon?
