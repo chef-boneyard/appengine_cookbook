@@ -23,4 +23,4 @@ default['appengine']['source_location'] = '/tmp/hello_world'
 default['appengine']['branch'] = 'master'
 
 # demo of appengine
-default['appengine']['demo'] = true
+default['appengine']['demo'] = false
