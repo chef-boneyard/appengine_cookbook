@@ -32,14 +32,6 @@ chef_gem 'json' do
   action :install
 end
 
-git node.default['appengine']['source_location'] do
-  repository node.default['appengine']['repository']
-  reference  node.default['appengine']['branch']
-  user 'root'
-  group 'root'
-  action :sync
-end
-
 directory '/tmp/gcloud' do
   owner 'root'
   group 'root'
@@ -56,6 +48,14 @@ cookbook_file '/tmp/gcloud/service_account.json' do
 end
 
 if node.default['appengine']['demo'] == true
+  git node.default['appengine']['source_location'] do
+    repository node.default['appengine']['repository']
+    reference  node.default['appengine']['branch']
+    user 'root'
+    group 'root'
+    action :sync
+  end
+
   appengine 'formal-platform-134918' do
     app_yaml "#{node.default['appengine']['source_location']}/app.yaml"
     service_id 'default'

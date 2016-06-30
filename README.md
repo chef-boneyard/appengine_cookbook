@@ -19,11 +19,12 @@ For instance, the following will create `"formal-platform-134918"` with the foll
 ```ruby
   appengine "formal-platform-134918" do
     app_id "formal-platform-134918" # this line is optional
+    app_yaml "#{node.default['appengine']['source_location']}/app.yaml"
     service_id 'default'
     bucket_name 'chef-conf16-appengine'
     service_account_json   ::File.expand_path("/tmp/gcloud/service_account.json")
-    source '/tmp/hello_world'
-    action :create
+    source node.default['appengine']['source_location']
+    action :create # this is default, so optional, but you can do the other actions here
   end
 ```
 
