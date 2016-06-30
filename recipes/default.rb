@@ -32,19 +32,6 @@ chef_gem 'json' do
   action :install
 end
 
-bash 'Install gems into the chefdk' do
-  user 'root'
-  cwd '/tmp'
-  creates '/opt/chefdk/.google_installed'
-  code <<-EOH
-  STATUS=0
-  sudo chef exec gem install googleauth || STATUS=1
-  sudo chef exec gem install google-api-client || STATUS=1
-  sudo touch /opt/chefdk/.google_installed || STATUS=1
-  exit $STATUS
-  EOH
-end
-
 git node.default['appengine']['source_location'] do
   repository node.default['appengine']['repository']
   reference  node.default['appengine']['branch']
@@ -70,9 +57,10 @@ end
 
 if node.default['appengine']['demo'] == true
   appengine 'formal-platform-134918' do
+    app_yaml "#{node.default['appengine']['source_location']}/app.yaml"
     service_id 'default'
     bucket_name 'chef-conf16-appengine'
     service_account_json account_json
-    source '/tmp/hello_world'
+    source node.default['appengine']['source_location']
   end
 end

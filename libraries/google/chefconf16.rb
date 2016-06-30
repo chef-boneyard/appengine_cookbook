@@ -14,10 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-require 'chef'
-require 'google/apis/appengine_v1beta5'
-require 'google/apis/storage_v1'
-require 'google/credential_helper'
 
 module Google
   module ChefConf16
@@ -27,10 +23,15 @@ module Google
       attr_reader :version_id
 
       def initialize(args = {})
+        require 'chef'
+        require 'google/apis/appengine_v1beta5'
+        require 'google/apis/storage_v1'
+        require_relative 'credential_helper'
+
         store_api = 'https://storage.googleapis.com'
 
         raise 'Missing :app_id' if (@app_id = args[:app_id]).nil? || @app_id.empty?
-        raise 'Missing :serviceid' if (@service_id = args[:service_id]).nil? || @service_id.empty?
+        raise 'Missing :service_id' if (@service_id = args[:service_id]).nil? || @service_id.empty?
         raise 'Missing :bucket_name' \
             if (@bucket_name = args[:bucket_name]).nil? || @bucket_name.empty?
         raise 'Missing :service_account_json' \

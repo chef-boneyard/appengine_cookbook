@@ -4,7 +4,7 @@ maintainer_email 'partnereng@chef.io'
 license 'Apache 2.0'
 description 'Configures appengine'
 long_description 'Configures appengine'
-version '0.0.4'
+version '0.0.5'
 
 source_url 'https://github.com/chef-partners/appengine-cookbook' if
   respond_to?(:source_url)
