@@ -6,6 +6,7 @@ property :service_id, String
 property :bucket_name, String
 property :service_account_json, String
 property :source, String
+property :version_id, String
 
 default_action :create
 
@@ -15,7 +16,8 @@ action :create do
     :app_yaml => app_yaml,
     :service_id => service_id,
     :bucket_name => bucket_name,
-    :service_account_json => service_account_json
+    :service_account_json => service_account_json,
+    :version_id => version_id
   )
   deployer.upload_files
   deployer.create_new_version
@@ -32,10 +34,11 @@ action :upload do
     :app_yaml => app_yaml,
     :service_id => service_id,
     :bucket_name => bucket_name,
-    :service_account_json => service_account_json
+    :service_account_json => service_account_json,
+    :version_id => version_id
   )
   deployer.upload_files
-  puts "Created version #{deployer.version_id}."
+  puts "Uploaded files to Google Storage."
 end
 
 action :delete do
@@ -44,9 +47,11 @@ action :delete do
     :app_yaml => app_yaml,
     :service_id => service_id,
     :bucket_name => bucket_name,
-    :service_account_json => service_account_json
+    :service_account_json => service_account_json,
+    :version_id => version_id
   )
   deployer.cleanup
+  puts "Cleanup complete"
 end
 
 action :activate do
@@ -55,7 +60,8 @@ action :activate do
     :app_yaml => app_yaml,
     :service_id => service_id,
     :bucket_name => bucket_name,
-    :service_account_json => service_account_json
+    :service_account_json => service_account_json,
+    :version_id => version_id
   )
   deployer.activate
   puts "Production application @ #{deployer.production_url}"
@@ -67,7 +73,8 @@ action :stage do
     :app_yaml => app_yaml,
     :service_id => service_id,
     :bucket_name => bucket_name,
-    :service_account_json => service_account_json
+    :service_account_json => service_account_json,
+    :version_id => version_id
   )
   deployer.upload_files
   deployer.create_new_version
