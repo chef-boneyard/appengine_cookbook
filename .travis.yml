@@ -1,4 +1,8 @@
 language: ruby
+before_install: gem update bundler
+rvm:
+- 2.3.0
+
 sudo: false
 
 addons:
