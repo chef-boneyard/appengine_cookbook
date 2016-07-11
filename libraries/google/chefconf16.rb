@@ -25,7 +25,7 @@ module Google
         require 'chef'
         require 'google/apis/appengine_v1beta5'
         require 'google/apis/storage_v1'
-        require 'google/credential_helper'
+        require_relative 'credential_helper'
 
         store_api = 'https://storage.googleapis.com'
 
