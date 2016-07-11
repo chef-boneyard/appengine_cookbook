@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 module Google
   module ChefConf16
     class AppengineDeploy < Chef::Resource
@@ -26,8 +25,7 @@ module Google
         require 'chef'
         require 'google/apis/appengine_v1beta5'
         require 'google/apis/storage_v1'
-        require_relative 'credential_helper'
-
+        require 'google/credential_helper'
         store_api = 'https://storage.googleapis.com'
 
         raise 'Missing :app_id' if (@app_id = args[:app_id]).nil? || @app_id.empty?
@@ -44,8 +42,8 @@ module Google
 
         @version_info = YAML.load(::File.read(@app_yaml))
 
-        @version_id = Time.new.iso8601.to_s.delete('-').delete(':').delete('+').downcase
-        @version_id ||= args[:version_id]
+        @version_id = args[:version_id] if args.key?(:version_id)
+        @version_id ||= Time.new.iso8601.to_s.delete('-').delete(':').delete('+').downcase
 
         @cleaned_app_id = @app_id.gsub(/.*:/, '')
         appengine_domain = @app_id.start_with?('google.com:') ? 'googleplex' : 'appspot'
